@@ -418,10 +418,6 @@ Creating a "Hellow world" example
 ```
 cd esp
 ```
-* 遞歸克隆 esp-who 專案的 Git 儲存庫：
-```
-git clone --recursive https://github.com/espressif/esp-who.git
-```
 * 遞歸克隆 esp-idf 專案的 Git 儲存庫：
 ```
 git clone --recursive https://github.com/espressif/esp-idf.git
