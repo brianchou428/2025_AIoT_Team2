@@ -80,7 +80,7 @@ USB 接上電腦之後就會亮綠燈（右下角）
   * 人臉偵測
  <img width="1477" height="1108" alt="image" src="https://github.com/user-attachments/assets/851146a4-608d-4706-8a82-63da5a93e4dd" />
 
-
+* 如果無法偵測，請重新開機
 
 ## 期末評分
 ### 現有的範例
@@ -105,19 +105,11 @@ USB 接上電腦之後就會亮綠燈（右下角）
 ### 評分方式
 | 項目 | 分數 |
 | --- | --- |
-| Terminal 範例執行成功 | 60 |
-| 復原範例執行成功 | +10 |
-| 完成Terminal 範例 Markdown 操作手冊 | +5 | 
-| LCD 範例執行成功 | +5 |
-| 完成LCD 範例 Markdown 操作手冊 | +5 | 
-| WEB 範例執行成功 | +5 |
-| 完成WEB 範例 Markdown 操作手冊 | +5 | 
-| 修改代碼成功 | +5 |
-| 完成修改代碼操作手冊 | +5 | 
-| 更新模型成功 | +10 |
-| 完成更新模型操作手冊 | +5 | 
-| 自訓練模型成功 | +15 |
-| 完成自訓練模型操作手冊 | +5 | 
+| 燒錄Factory範例PR | 60 |
+| 更新模型成功（人臉->貓狗） | +10 |
+| 完成更新模型操作PR | +10 | 
+| 新增自訓練偵測模式 | +10 |
+| 完成自訓練偵測模式 PR | +10 | 
 
 
 ## 軟體開發
@@ -127,10 +119,10 @@ ESP-EYE 可在 Linux、MacOs、Windows 作業系統中完成軟體燒寫。 目�
 
 
 ### 準備工作
-
+- 閱讀  https://docs.espressif.com/projects/esp-idf/zh_CN/latest/esp32p4/get-started/index.html
 - 閱讀 [ESP-IDF程式指南](https://espressif-docs.readthedocs-hosted.com/projects/esp-idf/zh-cn/latest/get-started/index.html)，參考對應章節，設定工具鏈；
 - windows 可以使用 https://dl.espressif.com/dl/esp-idf/
-- 準備 USB Type-C 線，用於連接 PC 和 YD-ESP32-S3-EYE 開發板；
+- 準備 USB Type-C 線，用於連接 PC 和 ESP32-P4-EYE 開發板；
 - 選擇適合開發環境的工具，例如 Terminal (Linux/MacOS) 或 MinGW (Windows) 等。
 - AWS主控台登入
   - URL https://049281306005.signin.aws.amazon.com/console
@@ -177,10 +169,16 @@ sudo apt-get install minicom
 sudo yum install minicom
 ```
 
+对于 MacOS 的系统，使用：
+```
+brew install minicom
+```
+
+
 * 配置 Minicom
 在启动 Minicom 之前，您需要知道您的设备连接到的串行端口号以及设备通讯的相关参数（如波特率）。通常，ESP32 等设备的默认波特率是 115200。
 
-查找设备的串行端口：您可以使用 `dmesg | grep tty` 命令来查看设备连接的串行端口。通常，设备会被标记为 `/dev/ttyUSB0` 或 `/dev/ttyACM0`。MacOS 标记为 `/dev/tty.SLAB_USBtoUART`
+查找设备的串行端口：您可以使用 `dmesg | grep tty` 命令来查看设备连接的串行端口。通常，设备会被标记为 `/dev/ttyUSB0` 或 `/dev/ttyACM0`。MacOS 标记为 `/dev/tty.SLAB_USBtoUART` 或 `/dev/tty.usbmodem1101` `/dev/tty.usbmodem101` 後面數字隨機變動
 
 * 配置 Minicom：运行 Minicom 的配置界面来设置串行端口参数。
 ```
@@ -191,7 +189,159 @@ sudo minicom -s
     * Bps/Par/Bits: 设置波特率（例如 115200）和其他通讯参数（通常为 8N1）。
     * Exit: 退出配置界面。
 * 使用 Minicom 查看输出
-配置完成后，您可以启动 Minicom 以连接到您的设备并查看输出：
+配置完成后，您可以启动 Minicom 以连接到您的设备并查看输出（重新上電後）：
+
+```
+Welcome to minicom 2.10
+
+OPTIONS:                                                                     
+Compiled on Feb 22 2025, 10:10:35.                                           
+Port /dev/tty.usbmodem1101, 10:49:58 [F]                                     
+                                                                             
+Press Meta-Z for help on special keys                                        
+                                                                             
+I (962) esp_image: segment 2: paddr=004f7bdc vaddr=4ff00000 size=0843ch ( 33852)d
+I (971) esp_image: segment 3: paddr=00500020 vaddr=48000020 size=180d98h (157634p
+I (1235) esp_image: segment 4: paddr=00680dc0 vaddr=4ff0843c size=12908h ( 76040d
+I (1251) esp_image: segment 5: paddr=006936d0 vaddr=4ff1ad80 size=03d78h ( 15736d
+I (1256) esp_image: segment 6: paddr=00697450 vaddr=50108080 size=0001ch (    28d
+I (1263) boot: Loaded app from partition at offset 0x10000                   
+I (1264) boot: Disabling RNG early entropy source...                         
+I (1277) hex_psram: vendor id    : 0x0d (AP)                                 
+I (1277) hex_psram: Latency      : 0x01 (Fixed)                              
+I (1277) hex_psram: DriveStr.    : 0x00 (25 Ohm)                             
+I (1278) hex_psram: dev id       : 0x03 (generation 4)                       
+I (1283) hex_psram: density      : 0x07 (256 Mbit)                           
+I (1287) hex_psram: good-die     : 0x06 (Pass)
+I (1292) hex_psram: SRF          : 0x02 (Slow Refresh)                           
+I (1296) hex_psram: BurstType    : 0x00 ( Wrap)                                  
+I (1301) hex_psram: BurstLen     : 0x03 (2048 Byte)                              
+I (1305) hex_psram: BitMode      : 0x01 (X16 Mode)                               
+I (1310) hex_psram: Readlatency  : 0x04 (14 cycles@Fixed)                        
+I (1315) hex_psram: DriveStrength: 0x00 (1/1)                                    
+I (1319) MSPI DQS: tuning success, best phase id is 2                            
+I (1502) MSPI DQS: tuning success, best delayline id is 10                       
+I esp_psram: Found 32MB PSRAM device                                             
+I esp_psram: Speed: 200MHz                                                       
+I (1872) mmu_psram: .rodata xip on psram                                         
+I (1989) mmu_psram: .text xip on psram                                           
+I (1989) hex_psram: psram CS IO is dedicated                                     
+I (1989) cpu_start: Multicore app                                                
+I (2001) cpu_start: Pro cpu start user code                                      
+I (2001) cpu_start: cpu freq: 360000000 Hz                                       
+I (2001) app_init: Application information:                                      
+I (2001) app_init: Project name:     factory_demo                                
+I (2005) app_init: App version:      1.0.0                                       
+I (2009) app_init: Compile time:     May 30 2025 17:39:07                        
+I (2014) app_init: ELF file SHA256:  4cc7481a3...                                
+I (2019) app_init: ESP-IDF:          v5.5-dev-2512-gfca19d0868f-dirt             
+I (2025) efuse_init: Min chip rev:     v0.1                                      
+I (2029) efuse_init: Max chip rev:     v1.99                                     
+I (2033) efuse_init: Chip rev:         v1.3                                      
+I (2037) heap_init: Initializing. RAM available for dynamic allocation:          
+I (2043) heap_init: At 4FF23A70 len 00017550 (93 KiB): RAM                       
+I (2048) heap_init: At 4FF3AFC0 len 00004BF0 (18 KiB): RAM                       
+I (2053) heap_init: At 4FF40000 len 00040000 (256 KiB): RAM                      
+I (2059) heap_init: At 5010809C len 00007F64 (31 KiB): RTCRAM                    
+I (2064) heap_init: At 30100424 len 00001BDC (6 KiB): TCM                        
+I (2069) esp_psram: Adding pool of 26112K of PSRAM memory to heap allocator      
+I (2076) spi_flash: detected chip: generic                                       
+I (2080) spi_flash: flash io: dio                                                
+W (2083) bsp_p4_eye: Auto-initializing ESP32-P4-EYE board using constructor attre
+I (2091) gpio: GPIO[46]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulld 
+I (2099) gpio: GPIO[26]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulld 
+I (2108) bsp_p4_eye: ESP32-P4-EYE board initialized successfully                 
+I (2114) main_task: Started on CPU0                                              
+I (2117) esp_psram: Reserving pool of 32K of internal memory for DMA/internal als
+I (2125) main_task: Calling app_main()                                           
+I (2128) main: Initialize NVS                                                    
+I (2136) main: Initialize the flashlight                                         
+I (2136) gpio: GPIO[23]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulld 
+I (2143) main: Initialize the AI detect                                          
+I (2146) app_ai_detect: Initialize the AI detect                                 
+W (2151) FbsLoader: There is only one model in the flatbuffers, ignore the input!
+W (2159) FbsLoader: CONFIG_SPIRAM_RODATA or CONFIG_SPIRAM_XIP_FROM_PSRAM option .
+W (2236) FbsLoader: CONFIG_SPIRAM_RODATA or CONFIG_SPIRAM_XIP_FROM_PSRAM option .
+W (2262) FbsLoader: CONFIG_SPIRAM_RODATA or CONFIG_SPIRAM_XIP_FROM_PSRAM option .
+W (2273) FbsLoader: There is only one model in the flatbuffers, ignore the input!
+W (2273) FbsLoader: CONFIG_SPIRAM_RODATA or CONFIG_SPIRAM_XIP_FROM_PSRAM option .
+W (2868) dl::Model: Minimize() will delete variables not used in model inference.
+I (2877) esp_painter: Painter initialized: 240x240, format: 0                    
+I (2877) app_camera_pipeline: new elements[0]:0x48749508, internal:1             
+I (2881) app_camera_pipeline: new elements[1]:0x4874b18c, internal:1             
+I (2887) app_camera_pipeline: new elements[2]:0x4874ce10, internal:1             
+I (2893) app_camera_pipeline: new elements[3]:0x4884863c, internal:1             
+I (2900) app_camera_pipeline: new elements[4]:0x4884a2c0, internal:1             
+I (2906) app_camera_pipeline: new pipeline 0x48750a7c, elem_num:5                
+I (2911) app_camera_pipeline: new elements[0]:0x48750414, internal:1             
+I (2918) app_camera_pipeline: new elements[1]:0x48750468, internal:1             
+I (2924) app_camera_pipeline: new elements[2]:0x487507a8, internal:1             
+I (2930) app_camera_pipeline: new elements[3]:0x487507fc, internal:1             
+I (2936) app_camera_pipeline: new elements[4]:0x48750850, internal:1             
+I (2942) app_camera_pipeline: new pipeline 0x48750b1c, elem_num:5                
+I (2948) main: Initialize the display                                            
+I (2951) LVGL: Starting LVGL task                                                
+W (2954) p4-eye: If the pixel clock is not set to 20 MHz, you need to temporaril.
+I (2972) gpio: GPIO[15]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulld 
+I (3297) app_storage: Settings loaded from NVS successfully                      
+I (3297) app_video_photo: Photo resolution set to 1920x1080                      
+I (3297) app_video_record: Video resolution set to 1920x1080                     
+I (3302) app_storage: Settings saved to NVS successfully                         
+I (3307) app_storage: Settings saved to NVS successfully                         
+I (3312) app_storage: Settings saved to NVS successfully                         
+I (3317) app_storage: Camera settings loaded from NVS successfully               
+I (3335) main: Initialize the storage                                            
+I (3335) app_storage: other wake up                                              
+I (3335) app_storage: Interval state loaded: active=0, next_wake=0               
+I (3336) app_storage: Interval state saved: active=0, next_wake=0                
+I (3342) app_storage: Photo count saved: 0                                       
+I (3347) app_video_stream: Interval photo stopped                                
+I (3350) app_storage: Photo count saved: 0                                       
+I (3362) gpio: GPIO[45]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 0| Pulld 
+I (3363) p4-eye: Setting LCD backlight: 100%                                     
+I (3366) main: Initialize the application control module                         
+I (3373) gpio: GPIO[2]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 0| Pulldo 
+I (3380) gpio: GPIO[3]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 0| Pulldo 
+I (3392) gpio: GPIO[4]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 0| Pulldo 
+I (3397) gpio: GPIO[5]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 0| Pulldo 
+I (3405) button: IoT Button Version: 3.5.0                                       
+I (3409) gpio: GPIO[3]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldo 
+I (3422) button: IoT Button Version: 3.5.0                                       
+I (3422) gpio: GPIO[4]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldo 
+I (3429) button: IoT Button Version: 3.5.0                                       
+I (3433) gpio: GPIO[5]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldo 
+I (3441) button: IoT Button Version: 3.5.0                                       
+I (3452) gpio: GPIO[2]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldo 
+I (3454) gpio: GPIO[48]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulld 
+I (3463) gpio: GPIO[47]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulld 
+I (3470) Knob: Iot Knob Config Succeed, encoder A:48, encoder B:47, direction:0,0
+I (3482) main: Initialize the I2C                                                
+W (3482) i2c.master: Please check pull-up resistances whether be connected propes
+I (3497) main: Initialize the video streaming application                        
+I (3504) ov2710: Detected Camera sensor PID=0x2710                               
+I (3645) app_video: version: 0.9.0                                               
+I (3645) app_video: driver:  MIPI-CSI                                            
+I (3645) app_video: card:    MIPI-CSI                                            
+I (3645) app_video: bus:     esp32p4:MIPI-CSI                                    
+I (3648) app_video: width=1920 height=1080                                       
+I (3652) app_storage: Camera settings loaded from NVS successfully               
+I (3690) app_video_stream: Allocated shared photo buffer: 1843200 bytes (1280x72)
+I (3693) app_ai_detect: AI detection buffers initialized successfully            
+I (3698) app_storage: Photo count loaded: 0                                      
+I (3698) app_storage: Photo count saved: 0                                       
+I (3700) app_video_photo: Using shared photo buffer: 1843200 bytes               
+I (3706) app_video_record: Using shared photo buffer: 1843200 bytes              
+I (3712) p4-eye: bsp_microphone_init: 0                                          
+W (3715) i2s_common: dma frame num is adjusted to 256 to align the dma buffer wi2
+I (3725) I2S_IF: channel mode 1 bits:16/16 channel:2 mask:3                      
+I (3730) Adev_Codec: Open codec device OK                                        
+I (3733) app_video: Video Stream Start                                           
+I (3739) main_task: Returned from app_main()                                     
+I (7693) app_video_stream: Camera initialized after 50 frames                    
+
+```
+
+
 
 * 退出 Minicom
 要退出 Minicom，您可以按 Ctrl-A 然后按 Z 键来进入 Minicom 的帮助菜单，再按 X 键退出。
