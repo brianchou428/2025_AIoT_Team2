@@ -66,27 +66,19 @@ USB 接上電腦之後就會亮綠燈（右下角）
 ##### 錄影
 <img width="1477" height="1108" alt="image" src="https://github.com/user-attachments/assets/58ecb843-b4af-466a-a70f-25d5f1faa995" />
 
-##### 行人偵測
+##### 影像偵測
 <img width="1477" height="1108" alt="image" src="https://github.com/user-attachments/assets/2c8e0cd2-8850-4f7a-88f1-0bac3bb4d068" />
 
-影像顯示測試
-左上角按鈕按一下
+* ◉ 右側按鈕按一下進入影像偵測模式
+<img width="1477" height="1108" alt="image" src="https://github.com/user-attachments/assets/1cb4770c-8768-4ef8-84e1-37a125a920a9" />
+* 快送滾動右上角的滾論 可以切換放大倍率 x1 x2 x3 x4
+* 按壓 ▲▼ 右側的按鈕 可以依序切換偵測模式
+  * 行人偵測
+<img width="1477" height="1108" alt="image" src="https://github.com/user-attachments/assets/7f058f24-2085-48cd-8554-717fa577d078" />
+  * 人臉偵測
+ <img width="1477" height="1108" alt="image" src="https://github.com/user-attachments/assets/851146a4-608d-4706-8a82-63da5a93e4dd" />
 
-<img width="163" alt="image" src="https://github.com/itemhsu/AIoT_one/assets/25599185/32fb46d2-7d8b-45c1-8963-3bc72777ec9c">
 
-#### 人臉偵測展示
-左上角按鈕再按一下
-
-<img width="753" alt="image" src="https://github.com/itemhsu/AIoT_one/assets/25599185/cc70abee-1753-42f2-8190-f01e40cb9dac">
-
-#### ESP32 SoC 晶片支援以下功能：
-
-* 2.4 GHz Wi-Fi
-* 藍牙 4.2
-* 高性能雙核心
-* 超低功耗協處理器
-* 多種週邊
-* 便宜
 
 ## 期末評分
 ### 現有的範例
