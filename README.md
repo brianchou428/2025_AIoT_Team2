@@ -71,7 +71,9 @@ USB 接上電腦之後就會亮綠燈（右下角）
 
 * ◉ 右側按鈕按一下進入影像偵測模式
 <img width="1477" height="1108" alt="image" src="https://github.com/user-attachments/assets/1cb4770c-8768-4ef8-84e1-37a125a920a9" />
+
 * 快送滾動右上角的滾論 可以切換放大倍率 x1 x2 x3 x4
+
 * 按壓 ▲▼ 右側的按鈕 可以依序切換偵測模式
   * 行人偵測
 <img width="1477" height="1108" alt="image" src="https://github.com/user-attachments/assets/7f058f24-2085-48cd-8554-717fa577d078" />
