@@ -157,6 +157,13 @@ cd ./esp
 git clone https://github.com/espressif/esp-dev-kits.git
 git clone --recursive https://github.com/espressif/esp-idf.git
 ```
+* install cmake
+```
+cd ./esp/esp-idf
+./install.sh all
+source ./export.sh
+$IDF_PATH/tools/idf_tools.py install cmake
+```
 
 #### Local install
 您需要在本機上安裝 ESP32 刷機工具。 ESP-IDF（物聯網開發框架）提供了 esptool.py，這是一個用於刷新 ESP32 裝置的 Python 實用程式。
