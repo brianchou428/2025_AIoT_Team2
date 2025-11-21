@@ -135,6 +135,7 @@ ESP-EYE 可在 Linux、MacOs、Windows 作業系統中完成軟體燒寫。 目�
 #### Launch SageMaker Notebook
 * use "ml.c5.xlarge", that has 4 cpus
 * 卷大小(以 GB 为单位) = 15GB
+* OS = Amazon Linux  2023
 #### Setting Sagemaker Enviroment
 * New a sagemaker terminal
 * Change directory: for future file operation
@@ -457,7 +458,7 @@ cd hello_world/
 
 * 執行 idf.py 工具進行配置（例如設置項目參數）：
 ```
-idf.py set-target esp32s3
+idf.py set-target esp32p4
 idf.py menuconfig
 ```
 <img width="513" alt="image" src="https://github.com/itemhsu/AIoT_one/assets/25599185/cd5da1d0-5404-4e36-82f2-ad104b90d7fe">
