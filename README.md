@@ -168,6 +168,11 @@ cd ./esp/esp-idf
 source ./export.sh
 $IDF_PATH/tools/idf_tools.py install cmake
 ```
+* 每次開機都要執行
+```
+./install.sh all
+source ./export.sh
+```
 
 #### Local install
 您需要在本機上安裝 ESP32 刷機工具。 ESP-IDF（物聯網開發框架）提供了 esptool.py，這是一個用於刷新 ESP32 裝置的 Python 實用程式。
