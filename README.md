@@ -480,6 +480,9 @@ idf.py set-target esp32p4
 idf.py menuconfig
 ```
 <img width="513" alt="image" src="https://github.com/itemhsu/AIoT_one/assets/25599185/cd5da1d0-5404-4e36-82f2-ad104b90d7fe">
+* 設定晶片版本
+<img width="710" height="339" alt="image" src="https://github.com/user-attachments/assets/cacb3a47-fe93-40ff-89fa-467971a50219" />
+
 
 * 使用 idf.py 工具構建項目：
 ```
@@ -489,6 +492,14 @@ idf.py build
 注意構建後的燒錄指令
 
 <img width="1133" alt="image" src="https://github.com/itemhsu/AIoT_one/assets/25599185/65dba0ad-f191-46ef-8665-6b4b2c273061">
+<img width="686" height="235" alt="image" src="https://github.com/user-attachments/assets/d5f740a2-a7e8-490c-9b1f-2a83c91fd932" />
+<img width="578" height="222" alt="image" src="https://github.com/user-attachments/assets/f35c4567-6690-493a-ac97-a2ce3bb91f62" />
+<img width="690" height="209" alt="image" src="https://github.com/user-attachments/assets/b9186d24-bab1-443f-8df4-600594fe27c7" />
+<img width="698" height="200" alt="image" src="https://github.com/user-attachments/assets/748bd8d3-6285-4b76-a4d0-2bee29c3ac09" />
+<img width="741" height="146" alt="image" src="https://github.com/user-attachments/assets/71a6263a-9f71-4233-a847-a4e1eccf2fc4" />
+
+
+
 
 
 ### Image Flashing Hands on 
